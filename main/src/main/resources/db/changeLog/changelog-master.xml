@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="classpath:db/changeLog/added_entity_user.xml"/>
+    <include file="classpath:db/changeLog/added_entity_profileInfo.xml"/>
+    <include file="classpath:db/changeLog/added_entity_fileStorage.xml"/>
+    <include file="classpath:db/changeLog/added_entity_course.xml"/>
+    <include file="classpath:db/changeLog/added_entity_courseDetail.xml"/>
+    <include file="classpath:db/changeLog/added_entity_courseUsers.xml"/>
+    <include file="classpath:db/changeLog/added_entity_course_courseDetail.xml"/>
+    <include file="classpath:db/changeLog/added_entity_blogs.xml"/>
+    <include file="classpath:db/changeLog/added_entity_blogsContent.xml"/>
+    <include file="classpath:db/changeLog/added_entity_blogs_blogContent.xml"/>
+    <include file="classpath:db/changeLog/added_entity_payment.xml"/>
+
+
+
+    <changeSet id="20240116-foreignConstraints" author="Ashin Gotame">
+
+
+        <addForeignKeyConstraint
+                baseTableName="profile_info"
+                baseColumnNames="image_id"
+                constraintName="fk_profile_info_image"
+                referencedTableName="file_storage"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="profile_info"
+                baseColumnNames="user_id"
+                constraintName="fk_jm_users"
+                referencedTableName="jm_users"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+
+
+        <addForeignKeyConstraint
+                baseTableName="course_details"
+                baseColumnNames="file_id"
+                constraintName="fk_file_storage"
+                referencedTableName="file_storage"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+        <addForeignKeyConstraint
+                baseTableName="course_users"
+                baseColumnNames="course_id"
+                constraintName="fk_course"
+                referencedTableName="course"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="course_users"
+                baseColumnNames="user_id"
+                referencedTableName="jm_users"
+                referencedColumnNames="id"
+                constraintName="fk_jm_users"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+
+
+        <addForeignKeyConstraint
+                baseTableName="course_course_details"
+                baseColumnNames="course_id"
+                constraintName="fk_course"
+                referencedTableName="course"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="course_course_details"
+                baseColumnNames="course_details_id"
+                referencedTableName="course_details"
+                referencedColumnNames="id"
+                constraintName="fk_course_details"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="blogs"
+                baseColumnNames="created_by_id"
+                referencedTableName="jm_users"
+                referencedColumnNames="id"
+                constraintName="fk_jm_users"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+        <addForeignKeyConstraint
+                baseTableName="blog_content"
+                baseColumnNames="file_id"
+                referencedTableName="file_storage"
+                referencedColumnNames="id"
+                constraintName="fk_file_storage"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="blogs_blog_contents"
+                baseColumnNames="blogs_id"
+                referencedTableName="blogs"
+                referencedColumnNames="id"
+                constraintName="fk_blogs"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+        <addForeignKeyConstraint
+                baseTableName="blogs_blog_contents"
+                baseColumnNames="blog_contents_id"
+                referencedTableName="blog_content"
+                referencedColumnNames="id"
+                constraintName="fk_blog_content"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="payment"
+                baseColumnNames="requested_by_id"
+                referencedTableName="jm_users"
+                referencedColumnNames="id"
+                constraintName="fk_jm_users"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="payment"
+                baseColumnNames="course_id"
+                referencedTableName="course"
+                referencedColumnNames="id"
+                constraintName="fk_course"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"
+        />
+    </changeSet>
+
+
+</databaseChangeLog>

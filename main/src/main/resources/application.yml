@@ -1,0 +1,32 @@
+spring:
+  security:
+    user:
+      name: user
+      password: admin
+      roles: ADMIN
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+  liquibase:
+    change-log: classpath:/db/changeLog/changelog-master.xml
+    url: jdbc:postgresql://localhost:5432/postgres
+    user: postgres
+    password: admin
+    enabled: true
+
+server:
+  port: 8080
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+
+
+    
