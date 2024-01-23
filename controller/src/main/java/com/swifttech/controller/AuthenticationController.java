@@ -6,6 +6,7 @@ import com.swifttech.response.AuthenticationResponse;
 import com.swifttech.response.BaseResponse;
 import com.swifttech.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,13 @@ public class AuthenticationController {
 
     @PostMapping("authenticate")
     public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest authenticationRequest){
-       return authenticationService.authenticate(authenticationRequest);
+        AuthenticationResponse  response = null;
+        try {
+            response = this.authenticationService.authenticate(authenticationRequest);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return response;
     }
 
     @PostMapping("register")

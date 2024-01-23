@@ -3,6 +3,8 @@ package com.swifttech.entity.dto.response;
 import com.swifttech.entity.enumuration.Role;
 import lombok.*;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
@@ -15,4 +17,6 @@ public class UserResponseCustomDTO {
     private String middleName;
     private String email;
     private Role role;
+    private UUID userCode;
+
 }

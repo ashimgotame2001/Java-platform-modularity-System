@@ -8,6 +8,7 @@ import com.swifttech.response.AuthenticationRequest;
 import com.swifttech.response.AuthenticationResponse;
 import com.swifttech.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +19,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private static final String BAD_CREDENTIALS_MESSAGE = "Bad credentials";
@@ -33,9 +33,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
+    @Autowired
+    public AuthenticationServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtService jwtService) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
+    }
+
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        System.out.println(request);
+        if(request.getEmail() == null || request.getPassword() == null){
+            throw new BaseException(
+                    "Required field not found",
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Required field not found"
+            );
+        }
         Optional<User> user = userRepository.findByEmail(request.getEmail());
         if (user.isEmpty()) {
             throw new BaseException(

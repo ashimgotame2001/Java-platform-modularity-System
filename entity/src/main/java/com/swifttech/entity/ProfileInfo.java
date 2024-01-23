@@ -3,10 +3,7 @@ package com.swifttech.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +12,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "profileInfo")
 @JsonIgnoreProperties(value = {"user"}, allowSetters = true)
+@Builder
 public class ProfileInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

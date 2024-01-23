@@ -4,6 +4,7 @@ package com.swifttech.service.impl;
 import com.swifttech.entity.User;
 import com.swifttech.entity.dto.response.UserResponseCustomDTO;
 import com.swifttech.entity.mapper.UserMapper;
+import com.swifttech.exceptions.BaseException;
 import com.swifttech.repository.UserRepository;
 import com.swifttech.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseCustomDTO getUserByUserCode(UUID userCode) {
         Optional<User> user = this.userRepository.findByUserCode(userCode);
         if (user.isEmpty()){
-            throw new RuntimeException("User Not found");
+            throw new BaseException("User Not found",400,"Invalid user code");
         }
         return UserMapper.INSTANCE.toCustomDTO(user.get());
     }
