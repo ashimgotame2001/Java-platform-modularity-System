@@ -7,7 +7,6 @@ import com.swifttech.repository.UserRepository;
 import com.swifttech.response.AuthenticationRequest;
 import com.swifttech.response.AuthenticationResponse;
 import com.swifttech.service.AuthenticationService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;

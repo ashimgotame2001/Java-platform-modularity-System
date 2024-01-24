@@ -58,8 +58,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseCustomDTO getUserByUserCode(UUID userCode) {
         Optional<User> user = this.userRepository.findByUserCode(userCode);
-        if (user.isEmpty()){
-            throw new BaseException("User Not found",400,"Invalid user code");
+        if (user.isEmpty()) {
+            throw new BaseException("User Not found", 400, "Invalid user code");
         }
         return UserMapper.INSTANCE.toCustomDTO(user.get());
     }

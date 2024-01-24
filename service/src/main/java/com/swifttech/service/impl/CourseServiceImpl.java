@@ -39,6 +39,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseResponseDTO addNewCourse(CourseRequestDTO courseRequestDTO) {
+        if (courseRequestDTO == null){
+            throw  new BaseException("Required field Not found",400,"Required field Not found");
+        }
+
         Course course = CourseMapper.INSTANCE.toEntity(courseRequestDTO);
         FileStorage fileStorage = fileHandling.handleFile(courseRequestDTO.getFile());
         course.setCourseCode(UUID.randomUUID());

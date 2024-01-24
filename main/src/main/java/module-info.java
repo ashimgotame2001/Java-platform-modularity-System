@@ -1,6 +1,6 @@
 module  main {
     requires entity;
-    requires controller;
+//    requires controller;
     requires service;
     requires repository;
     requires config;
